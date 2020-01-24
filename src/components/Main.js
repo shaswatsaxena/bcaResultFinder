@@ -67,7 +67,7 @@ const Main = props => {
         <Toolbar>
           <BookIcon />
           <Typography className={classes.title} variant="h3" noWrap>
-            Results App
+            BCA Results
           </Typography>
         </Toolbar>
       </AppBar>
