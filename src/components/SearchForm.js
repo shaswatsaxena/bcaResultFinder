@@ -91,6 +91,9 @@ const SearchForm = props => {
             <MenuItem key={3} value={2018}>
               2018
             </MenuItem>
+            <MenuItem key={4} value={2019}>
+              2019
+            </MenuItem>
           </TextField>
           <TextField
             variant="outlined"
