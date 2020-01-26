@@ -1,8 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { fade, makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import { makeStyles } from "@material-ui/core/styles";
 import BookIcon from "@material-ui/icons/Book";
 
 const useStyles = makeStyles(theme => ({
@@ -13,53 +17,29 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2)
   },
   title: {
-    flexGrow: 1,
-    display: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block"
-    }
+    flexGrow: 1
   },
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25)
-    },
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(1),
-      width: "auto"
-    }
+  headerLink: {
+    color: "white",
+    textDecoration: "none"
   },
-  searchIcon: {
-    width: theme.spacing(7),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  inputRoot: {
-    color: "inherit"
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 7),
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: 120,
-      "&:focus": {
-        width: 200
-      }
-    }
+  link: {
+    color: "black",
+    textDecoration: "none"
   }
 }));
 
 const Main = props => {
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <div className={classes.root}>
@@ -67,8 +47,73 @@ const Main = props => {
         <Toolbar>
           <BookIcon />
           <Typography className={classes.title} variant="h3" noWrap>
-            BCA Results
+            <Link to="/" className={classes.headerLink}>
+              BCA Results
+            </Link>
           </Typography>
+          <div>
+            <Button
+              aria-controls="menu"
+              aria-haspopup="true"
+              onClick={handleClick}
+              className={classes.headerLink}
+            >
+              All Results
+            </Button>
+            <Menu
+              id="menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleClose}>
+                <Link className={classes.link} to="/results/2019/1">
+                  2019 FIRST SEM
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link className={classes.link} to="/results/2018/3">
+                  2018 THIRD SEM
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link className={classes.link} to="/results/2018/2">
+                  2018 SECOND SEM
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link className={classes.link} to="/results/2018/1">
+                  2018 FIRST SEM
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link className={classes.link} to="/results/2017/5">
+                  2017 FIFTH SEM
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link className={classes.link} to="/results/2017/4">
+                  2017 FOURTH SEM
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link className={classes.link} to="/results/2017/3">
+                  2017 THIRD SEM
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link className={classes.link} to="/results/2016/6">
+                  2016 SIXTH SEM
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link className={classes.link} to="/results/2016/5">
+                  2016 FIFTH SEM
+                </Link>
+              </MenuItem>
+            </Menu>
+          </div>
         </Toolbar>
       </AppBar>
     </div>

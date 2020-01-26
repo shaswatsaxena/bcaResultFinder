@@ -6,6 +6,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import semesters from "../semesters";
 
 const useStyles = makeStyles({
   card: {
@@ -19,8 +20,39 @@ const useStyles = makeStyles({
   }
 });
 
-const StudentCard = props => {
+const getYear = rollNumber => {
+  switch (rollNumber.toString().slice(0, 7)) {
+    case "8181020": {
+      return 2016;
+    }
+    case "9181020": {
+      return 2017;
+    }
+    case "2181020": {
+      return 2018;
+    }
+    case "2020410": {
+      return 2019;
+    }
+    default:
+      console.log("ERROR in finding year");
+  }
+};
+
+const StudentCard = ({ student }) => {
   const classes = useStyles();
+  const {
+    name,
+    result,
+    courseName,
+    totalMarks,
+    mothersName,
+    fathersName,
+    rollNumber,
+    enrollmentNumber
+  } = student;
+
+  const semester = semesters[courseName];
 
   return (
     <Card className={classes.card}>
@@ -30,18 +62,31 @@ const StudentCard = props => {
           color="textSecondary"
           gutterBottom
         >
-          {props.rollNumber}
+          {rollNumber}
         </Typography>
         <Typography variant="h5" component="h2">
-          {props.name}
+          {name}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          {props.semester}
+          Semester: {semester}
+        </Typography>
+        <Typography component="h2">Mother's Name: {mothersName}</Typography>
+        <Typography component="h2">Father's Name: {fathersName}</Typography>
+        <Typography component="h2">
+          Enrollment Number: {enrollmentNumber}
+        </Typography>
+        <Typography variant="h6" component="h2">
+          Result: {result}
+        </Typography>
+        <Typography variant="h6" component="h2">
+          Total Marks: {totalMarks}
         </Typography>
       </CardContent>
       <CardActions>
         <Button size="small">
-          <Link to={`/result/${props.rollNumber}`}>See Result</Link>
+          <Link to={`/result/${getYear(rollNumber)}/${rollNumber}/${semester}`}>
+            See Result
+          </Link>
         </Button>
       </CardActions>
     </Card>

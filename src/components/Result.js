@@ -21,9 +21,17 @@ const Result = props => {
   const url = `https://europe-west1-results-app-react.cloudfunctions.net/server/getResult${
     isNaN(+query) ? "ByName?name=" : "?rollNumber="
   }${query}&semester=${semester}&year=${year}`;
-  const [data, loading, resStatus] = useFetch(url);
+  const [response, loading, resStatus] = useFetch(url);
 
-  const studentData = data.data;
+  const studentData = response && response.data;
+  const totalMarks =
+    studentData &&
+    studentData.subjects.reduce(
+      (total, subject) =>
+        subject.total ? total + +subject.total.split("/")[0] : total,
+      0
+    );
+
   return (
     <Grid item xs={12}>
       <div style={{ background: "#ECECEC", padding: "30px" }}>
@@ -87,46 +95,51 @@ const Result = props => {
                 <Typography variant="h6" gutterBottom>
                   Course Name : {studentData.courseName}
                 </Typography>
+                <Typography variant="h6" gutterBottom>
+                  Total Marks : {totalMarks}
+                </Typography>
               </Container>
-              <Table size="small">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Subject</TableCell>
-                    <TableCell>Internal</TableCell>
-                    <TableCell>External</TableCell>
-                    <TableCell align="right">Total Marks</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {studentData.subjects.map((subject, index) => (
-                    <TableRow key={index}>
-                      <TableCell>{subject.name}</TableCell>
-                      <TableCell>{subject.internal}</TableCell>
-                      <TableCell>{subject.external}</TableCell>
-                      <TableCell align="right">{subject.total}</TableCell>
+              <Container maxWidth="lg">
+                <Table size="small">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Subject</TableCell>
+                      <TableCell>Internal</TableCell>
+                      <TableCell>External</TableCell>
+                      <TableCell align="right">Total Marks</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-              <Table size="small">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="center">
-                      Previous Semester Marks
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {Object.entries(studentData)
-                    .filter(entry => entry[0].startsWith("sem"))
-                    .map((semester, index) => (
+                  </TableHead>
+                  <TableBody>
+                    {studentData.subjects.map((subject, index) => (
                       <TableRow key={index}>
-                        <TableCell>{semester[0]}</TableCell>
-                        <TableCell>{semester[1]}</TableCell>
+                        <TableCell>{subject.name}</TableCell>
+                        <TableCell numeric>{subject.internal}</TableCell>
+                        <TableCell numeric>{subject.external}</TableCell>
+                        <TableCell align="right">{subject.total}</TableCell>
                       </TableRow>
                     ))}
-                </TableBody>
-              </Table>
+                  </TableBody>
+                </Table>
+                <Table size="small">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell align="center">
+                        Previous Semester Marks
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {Object.entries(studentData)
+                      .filter(entry => entry[0].startsWith("sem"))
+                      .map((semester, index) => (
+                        <TableRow key={index}>
+                          <TableCell>{semester[0]}</TableCell>
+                          <TableCell>{semester[1]}</TableCell>
+                        </TableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+              </Container>
             </React.Fragment>
           )}
         </Container>
