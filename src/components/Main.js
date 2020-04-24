@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -9,31 +9,31 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
 import BookIcon from "@material-ui/icons/Book";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   headerLink: {
     color: "white",
-    textDecoration: "none"
+    textDecoration: "none",
   },
   link: {
     color: "black",
-    textDecoration: "none"
-  }
+    textDecoration: "none",
+  },
 }));
 
-const Main = props => {
+const Main = (props) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = event => {
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -47,8 +47,8 @@ const Main = props => {
         <Toolbar>
           <BookIcon />
           <Typography className={classes.title} variant="h3" noWrap>
-            <Link to="/" className={classes.headerLink}>
-              BCA Results
+            <Link href="/">
+              <a className={classes.headerLink}> BCA Results</a>
             </Link>
           </Typography>
           <div>
@@ -68,48 +68,48 @@ const Main = props => {
               onClose={handleClose}
             >
               <MenuItem onClick={handleClose}>
-                <Link className={classes.link} to="/results/2019/1">
-                  2019 FIRST SEM
+                <Link href="/results/2019/1">
+                  <a className={classes.link}>2019 FIRST SEM</a>
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
-                <Link className={classes.link} to="/results/2018/3">
-                  2018 THIRD SEM
+                <Link href="/results/2018/3">
+                  <a className={classes.link}>2018 THIRD SEM</a>
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
-                <Link className={classes.link} to="/results/2018/2">
-                  2018 SECOND SEM
+                <Link href="/results/2018/2">
+                  <a className={classes.link}>2018 SECOND SEM</a>
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
-                <Link className={classes.link} to="/results/2018/1">
-                  2018 FIRST SEM
+                <Link href="/results/2018/1">
+                  <a className={classes.link}>2018 FIRST SEM</a>
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
-                <Link className={classes.link} to="/results/2017/5">
-                  2017 FIFTH SEM
+                <Link href="/results/2017/5">
+                  <a className={classes.link}>2017 FIFTH SEM</a>
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
-                <Link className={classes.link} to="/results/2017/4">
-                  2017 FOURTH SEM
+                <Link href="/results/2017/4">
+                  <a className={classes.link}>2017 FOURTH SEM</a>
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
-                <Link className={classes.link} to="/results/2017/3">
-                  2017 THIRD SEM
+                <Link href="/results/2017/3">
+                  <a className={classes.link}>2017 THIRD SEM</a>
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
-                <Link className={classes.link} to="/results/2016/6">
-                  2016 SIXTH SEM
+                <Link href="/results/2016/6">
+                  <a className={classes.link}>2016 SIXTH SEM</a>
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
-                <Link className={classes.link} to="/results/2016/5">
-                  2016 FIFTH SEM
+                <Link href="/results/2016/5">
+                  <a className={classes.link}>2016 FIFTH SEM</a>
                 </Link>
               </MenuItem>
             </Menu>

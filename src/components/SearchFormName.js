@@ -8,35 +8,36 @@ import SearchIcon from "@material-ui/icons/Search";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { useRouter } from "next/router";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   "@global": {
     body: {
-      backgroundColor: theme.palette.common.white
-    }
+      backgroundColor: theme.palette.common.white,
+    },
   },
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
+    margin: theme.spacing(3, 0, 2),
+  },
 }));
 
-const SearchForm = props => {
+const SearchForm = (props) => {
   const classes = useStyles();
-
+  const router = useRouter();
   const [name, setName] = useState();
   const [semester, setSemester] = useState(4);
   const [year, setYear] = useState(2017);
@@ -53,9 +54,9 @@ const SearchForm = props => {
         </Typography>
         <form
           className={classes.form}
-          onSubmit={e => {
+          onSubmit={(e) => {
             e.preventDefault();
-            props.history.push(`/result/${year}/${name}/${semester}`);
+            router.push(`/result/${year}/${name}/${semester}`);
           }}
         >
           <TextField
@@ -63,7 +64,7 @@ const SearchForm = props => {
             margin="normal"
             required
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
             fullWidth
             id="name"
             label="Full Name"
@@ -75,7 +76,7 @@ const SearchForm = props => {
             margin="normal"
             select
             value={year}
-            onChange={e => setYear(e.target.value)}
+            onChange={(e) => setYear(e.target.value)}
             required
             fullWidth
             id="year"
@@ -100,7 +101,7 @@ const SearchForm = props => {
             margin="normal"
             select
             value={semester}
-            onChange={e => setSemester(e.target.value)}
+            onChange={(e) => setSemester(e.target.value)}
             required
             fullWidth
             id="semester"

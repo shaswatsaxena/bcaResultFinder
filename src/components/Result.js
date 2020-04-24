@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -14,13 +15,13 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
-import { useFetch } from "../hooks";
+import { useFetch } from "../utils/hooks";
 
-const Result = props => {
-  const { query, semester, year } = props.match.params;
-  const url = `https://europe-west1-results-app-react.cloudfunctions.net/server/getResult${
-    isNaN(+query) ? "ByName?name=" : "?rollNumber="
-  }${query}&semester=${semester}&year=${year}`;
+const Result = (props) => {
+  const router = useRouter();
+  const { semester, name, year } = props;
+  // const { query, semester, year } = props.match.params;
+  const url = `https://europe-west1-results-app-react.cloudfunctions.net/server/getResultByName?name=${name}&semester=${semester}&year=${year}`;
   const [response, loading, resStatus] = useFetch(url);
 
   const studentData = response && response.data;
@@ -53,7 +54,7 @@ const Result = props => {
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
-                <Button onClick={() => props.history.push("/")} color="primary">
+                <Button onClick={() => router.push("/")} color="primary">
                   Agree
                 </Button>
               </DialogActions>
@@ -130,7 +131,7 @@ const Result = props => {
                   </TableHead>
                   <TableBody>
                     {Object.entries(studentData)
-                      .filter(entry => entry[0].startsWith("sem"))
+                      .filter((entry) => entry[0].startsWith("sem"))
                       .map((semester, index) => (
                         <TableRow key={index}>
                           <TableCell>{semester[0]}</TableCell>
@@ -149,3 +150,9 @@ const Result = props => {
 };
 
 export default Result;
+
+/*
+https://europe-west1-results-app-react.cloudfunctions.net/server/getResult${
+    isNaN(+query) ? "ByName?name=" : "?rollNumber="
+  }${query}&semester=${semester}&year=${year}
+*/
