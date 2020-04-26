@@ -1,9 +1,9 @@
-import SearchFormName from "../components/SearchFormName";
+import SearchForm from "../components/SearchForm";
 
 const Index = () => {
   return (
     <div>
-      <SearchFormName />
+      <SearchForm />
     </div>
   );
 };

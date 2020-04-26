@@ -19,9 +19,9 @@ import { useFetch } from "../utils/hooks";
 
 const Result = (props) => {
   const router = useRouter();
-  const { semester, name, year } = props;
+  const { semester, rollNumber, year } = props;
   // const { query, semester, year } = props.match.params;
-  const url = `https://europe-west1-results-app-react.cloudfunctions.net/server/getResultByName?name=${name}&semester=${semester}&year=${year}`;
+  const url = `https://europe-west1-results-app-react.cloudfunctions.net/server/getResult?rollNumber=${rollNumber}&semester=${semester}&year=${year}`;
   const [response, loading, resStatus] = useFetch(url);
 
   const studentData = response && response.data;
@@ -153,6 +153,12 @@ export default Result;
 
 /*
 https://europe-west1-results-app-react.cloudfunctions.net/server/getResult${
+    isNaN(+query) ? "ByName?name=" : "?rollNumber="
+  }${query}&semester=${semester}&year=${year}
+*/
+
+/* 
+`https://europe-west1-results-app-react.cloudfunctions.net/server/getResult${
     isNaN(+query) ? "ByName?name=" : "?rollNumber="
   }${query}&semester=${semester}&year=${year}
 */

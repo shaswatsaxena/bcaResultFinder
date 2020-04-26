@@ -8,7 +8,7 @@ export const getServerSideProps = (context) => {
   const ctx = context.params;
   const data = {
     year: ctx.slug[0],
-    name: ctx.slug[1],
+    rollNumber: ctx.slug[1],
     semester: ctx.slug[2],
   };
 
