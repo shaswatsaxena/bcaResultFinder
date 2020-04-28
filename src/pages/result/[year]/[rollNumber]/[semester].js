@@ -1,4 +1,4 @@
-import Result from "../../components/Result";
+import Result from "../../../../components/Result";
 
 const ResultData = ({ data }) => {
   return <div>{<Result {...data} />}</div>;
@@ -7,9 +7,9 @@ const ResultData = ({ data }) => {
 export const getServerSideProps = (context) => {
   const ctx = context.params;
   const data = {
-    year: ctx.slug[0],
-    rollNumber: ctx.slug[1],
-    semester: ctx.slug[2],
+    year: ctx.year,
+    rollNumber: ctx.rollNumber,
+    semester: ctx.semester,
   };
 
   return {
