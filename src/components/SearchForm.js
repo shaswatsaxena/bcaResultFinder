@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -9,33 +10,34 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   "@global": {
     body: {
-      backgroundColor: theme.palette.common.white
-    }
+      backgroundColor: theme.palette.common.white,
+    },
   },
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
+    margin: theme.spacing(3, 0, 2),
+  },
 }));
 
-const SearchForm = props => {
+const SearchForm = (props) => {
   const classes = useStyles();
+  const router = useRouter();
 
   const [rollNumber, setRollNumber] = useState();
   const [semester, setSemester] = useState(4);
@@ -53,9 +55,9 @@ const SearchForm = props => {
         </Typography>
         <form
           className={classes.form}
-          onSubmit={e => {
+          onSubmit={(e) => {
             e.preventDefault();
-            props.history.push(`/result/${year}/${rollNumber}/${semester}`);
+            router.push(`/result/${year}/${rollNumber}/${semester}`);
           }}
         >
           <TextField
@@ -63,7 +65,7 @@ const SearchForm = props => {
             margin="normal"
             required
             value={rollNumber}
-            onChange={e => setRollNumber(e.target.value)}
+            onChange={(e) => setRollNumber(e.target.value)}
             fullWidth
             id="rollNumber"
             label="Roll Number"
@@ -75,7 +77,7 @@ const SearchForm = props => {
             margin="normal"
             select
             value={year}
-            onChange={e => setYear(e.target.value)}
+            onChange={(e) => setYear(e.target.value)}
             required
             fullWidth
             id="year"
@@ -100,7 +102,7 @@ const SearchForm = props => {
             margin="normal"
             select
             value={semester}
-            onChange={e => setSemester(e.target.value)}
+            onChange={(e) => setSemester(e.target.value)}
             required
             fullWidth
             id="semester"
