@@ -1,4 +1,6 @@
 import axios from "axios";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 // importing components
 import StudentGrid from "../../../components/StudentGrid";
@@ -7,7 +9,16 @@ import StudentGrid from "../../../components/StudentGrid";
 import studentDetails from "../../../utils/studentDetails";
 
 const Results = ({ response }) => {
-  return <StudentGrid response={response} />;
+  const router = useRouter();
+
+  return (
+    <>
+      <Head>
+        <title>{`${router.query.year} (${router.query.semester})`}</title>
+      </Head>
+      <StudentGrid response={response} />
+    </>
+  );
 };
 
 export const getStaticPaths = () => {

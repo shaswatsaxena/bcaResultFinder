@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 // importing components
 import Result from "../../../../components/Result";
@@ -8,7 +9,14 @@ const ResultData = ({ data }) => {
   if (router.isFallback) {
     return <div>Loading....</div>;
   }
-  return <div>{<Result {...data} />}</div>;
+  return (
+    <>
+      <Head>
+        <title>{data.rollNumber}</title>
+      </Head>
+      <div>{<Result {...data} />}</div>
+    </>
+  );
 };
 
 export const getStaticPaths = async () => {
