@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { v4 as uuid } from "uuid";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@material-ui/core/Container";
 import Dialog from "@material-ui/core/Dialog";
@@ -12,8 +11,8 @@ import Pagination from "./Pagination";
 import { useFetch } from "../utils/hooks";
 
 const renderStudentCardsRow = (students) => {
-  return students.map((student) => (
-    <Grid key={uuid()} item xs={12} sm={4}>
+  return students.map((student, index) => (
+    <Grid key={`students ${index}`} item xs={12} sm={4}>
       <StudentCard student={student} />
     </Grid>
   ));
@@ -28,7 +27,7 @@ const renderStudentCardsGrid = (students) => {
     studentsRows.push(students.splice(0, studentsPerRow));
   }
   return studentsRows.map((row, id) => (
-    <Grid key={uuid()} container item xs={12} spacing={3}>
+    <Grid key={`studentsRows ${id}`} container item xs={12} spacing={3}>
       {renderStudentCardsRow(row)}
     </Grid>
   ));
