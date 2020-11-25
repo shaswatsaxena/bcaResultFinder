@@ -16,6 +16,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 import { useFetch } from "../utils/hooks";
+import { Pie } from "react-chartjs-2";
 
 const Result = (props) => {
   const router = useRouter();
@@ -142,6 +143,32 @@ const Result = (props) => {
                 </Table>
               </Container>
             </React.Fragment>
+          )}
+
+          {!loading && (
+            <Pie
+              data={{
+                datasets: [
+                  {
+                    data: response.data.subjects.map((subject) =>
+                      parseFloat(subject.total.split("/")[0])
+                    ),
+                    backgroundColor: [
+                      "#FAE8EB",
+                      "#F6CACA",
+                      "#E4C2C6",
+                      "#CD9FCC",
+                      "#0A014F",
+                      "#7286A0",
+                      "#A3BFA8",
+                    ],
+                    borderColor: "transparent",
+                  },
+                ],
+
+                labels: response.data.subjects.map((subject) => subject.name),
+              }}
+            />
           )}
         </Container>
       </div>
