@@ -16,7 +16,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 import { useFetch } from "../utils/hooks";
-import { Pie } from "react-chartjs-2";
+import { HorizontalBar } from "react-chartjs-2";
 
 const Result = (props) => {
   const router = useRouter();
@@ -115,8 +115,8 @@ const Result = (props) => {
                     {studentData.subjects.map((subject, index) => (
                       <TableRow key={index}>
                         <TableCell>{subject.name}</TableCell>
-                        <TableCell numeric>{subject.internal}</TableCell>
-                        <TableCell numeric>{subject.external}</TableCell>
+                        <TableCell>{subject.internal}</TableCell>
+                        <TableCell>{subject.external}</TableCell>
                         <TableCell align="right">{subject.total}</TableCell>
                       </TableRow>
                     ))}
@@ -146,13 +146,12 @@ const Result = (props) => {
           )}
 
           {!loading && (
-            <Pie
+            <HorizontalBar
               data={{
+                labels: response.data.subjects.map((subject) => subject.name),
                 datasets: [
                   {
-                    data: response.data.subjects.map((subject) =>
-                      parseFloat(subject.total.split("/")[0])
-                    ),
+                    label: "Marks",
                     backgroundColor: [
                       "#FAE8EB",
                       "#F6CACA",
@@ -162,11 +161,23 @@ const Result = (props) => {
                       "#7286A0",
                       "#A3BFA8",
                     ],
-                    borderColor: "transparent",
+                    data: response.data.subjects.map((subject) =>
+                      parseFloat(subject.total.split("/")[0])
+                    ),
                   },
                 ],
-
-                labels: response.data.subjects.map((subject) => subject.name),
+              }}
+              options={{
+                scales: {
+                  xAxes: [
+                    {
+                      ticks: {
+                        beginAtZero: true,
+                        max: 100,
+                      },
+                    },
+                  ],
+                },
               }}
             />
           )}
