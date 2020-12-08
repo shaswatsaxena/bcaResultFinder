@@ -13,6 +13,11 @@ export default props => (
       <Route exact path="/" component={SearchFormName} />
       <Route
         exact
+        path="/results/2019/2"
+        render={props => <StudentGrid {...props} year={2019} semester={2} />}
+      />
+      <Route
+        exact
         path="/results/2019/1"
         render={props => <StudentGrid {...props} year={2019} semester={1} />}
       />
