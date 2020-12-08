@@ -9,31 +9,31 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
 import BookIcon from "@material-ui/icons/Book";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   headerLink: {
     color: "white",
-    textDecoration: "none"
+    textDecoration: "none",
   },
   link: {
     color: "black",
-    textDecoration: "none"
-  }
+    textDecoration: "none",
+  },
 }));
 
-const Main = props => {
+const Main = (props) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = event => {
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -68,8 +68,18 @@ const Main = props => {
               onClose={handleClose}
             >
               <MenuItem onClick={handleClose}>
+                <Link className={classes.link} to="/results/2019/2">
+                  2019 SECOND SEM
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
                 <Link className={classes.link} to="/results/2019/1">
                   2019 FIRST SEM
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link className={classes.link} to="/results/2018/4">
+                  2018 FOURTH SEM
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
@@ -85,6 +95,11 @@ const Main = props => {
               <MenuItem onClick={handleClose}>
                 <Link className={classes.link} to="/results/2018/1">
                   2018 FIRST SEM
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link className={classes.link} to="/results/2017/6">
+                  2017 SIXTH SEM
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
